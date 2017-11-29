@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="testChain1" class="com.netease.urs.chain.support.GenericChain">
+        <property name="startNodeName" value="method1"/>
+        <property name="nodes">
+            <list>
+                <bean class="com.netease.urs.chain.support.NodeFactoryBean">
+                    <property name="name" value="method1"/>
+                    <property name="methodName" value="method1"/>
+                    <property name="target">
+                        <bean class="com.netease.urs.chain.support.TestNode"/>
+                    </property>
+                    <property name="forwards">
+                        <map>
+                            <entry key="success" value="method2"/>
+                        </map>
+                    </property>
+                </bean>
+                <bean class="com.netease.urs.chain.support.NodeFactoryBean">
+                    <property name="name" value="method2"/>
+                    <property name="methodName" value="method2"/>
+                    <property name="target">
+                        <bean class="com.netease.urs.chain.support.TestNode"/>
+                    </property>
+                    <property name="forwards">
+                        <map>
+                            <entry key="success" value="doNode"/>
+                        </map>
+                    </property>
+                </bean>
+                <bean class="com.netease.urs.chain.support.NodeFactoryBean">
+                    <property name="name" value="doNode"/>
+                    <property name="target">
+                        <bean class="com.netease.urs.chain.support.TestNode"/>
+                    </property>
+                    <property name="forwards">
+                        <map>
+                            <entry key="success" value="method3"/>
+                        </map>
+                    </property>
+                </bean>
+                <bean class="com.netease.urs.chain.support.NodeFactoryBean">
+                    <property name="name" value="method3"/>
+                    <property name="methodName" value="method3"/>
+                    <property name="target">
+                        <bean class="com.netease.urs.chain.support.TestNode"/>
+                    </property>
+                </bean>
+            </list>
+        </property>
+
+    </bean>
+</beans>
