@@ -1,4 +1,4 @@
-package com.netease.urs.chain.exceptions;
+package com.roof.chain.exceptions;
 
 /**
  * 值已经存在，并且当前插入方法不允许重复

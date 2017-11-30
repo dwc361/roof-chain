@@ -1,7 +1,7 @@
-package com.netease.urs.chain.support;
+package com.roof.chain.support;
 
-import com.netease.urs.chain.api.ValueStackParam;
-import com.netease.urs.chain.api.MethodParamDescriptor;
+import com.roof.chain.api.ValueStackParam;
+import com.roof.chain.api.MethodParamDescriptor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.cglib.reflect.FastClass;
 import org.springframework.cglib.reflect.FastMethod;

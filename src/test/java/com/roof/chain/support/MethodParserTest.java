@@ -1,6 +1,6 @@
-package com.netease.urs.chain.support;
+package com.roof.chain.support;
 
-import com.netease.urs.chain.api.MethodParamDescriptor;
+import com.roof.chain.api.MethodParamDescriptor;
 import org.junit.Test;
 
 public class MethodParserTest {
