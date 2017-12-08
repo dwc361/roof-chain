@@ -4,6 +4,7 @@ import com.roof.chain.api.MethodParamDescriptor;
 import com.roof.chain.api.Node;
 import com.roof.chain.api.NodeResultAdapter;
 import com.roof.chain.api.ValueStack;
+import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -37,6 +38,9 @@ public class NodeFactoryBean implements FactoryBean<Node>, InitializingBean {
         Assert.notNull(target, "target cannot null");
         if (StringUtils.isEmpty(methodName)) {
             methodName = DEFAULT_METHOD_NAME;
+        }
+        if (StringUtils.isEmpty(name)) {
+            name = StringUtils.uncapitalize(target.getClass().getSimpleName());
         }
         MethodParser methodParser = new MethodParser(target.getClass(), methodName);
         methodParameters = methodParser.getMethodParameters();
