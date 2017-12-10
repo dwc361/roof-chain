@@ -81,6 +81,9 @@ public class GenericValueStack implements ValueStack {
     @Override
     public <T> T getByType(Class<T> type) {
         for (Object val : context.values()) {
+            if (val == null) {
+                return null;
+            }
             if (ClassUtils.isAssignable(val.getClass(), type)) {
                 return (T) val;
             }
