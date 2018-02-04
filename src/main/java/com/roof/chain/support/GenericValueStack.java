@@ -5,6 +5,7 @@ import com.roof.chain.exceptions.ValueExistsException;
 import com.roof.chain.exceptions.ValueNotExistsException;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +21,7 @@ public class GenericValueStack implements ValueStack {
     private Map<String, Object> context = new HashMap<String, Object>(); //上下文环境
     private NodeResult result;
     private List<NodeResult> results = new ArrayList<NodeResult>();
+    private static final Class[] SIMPLE_CLASS = new Class[]{};
 
     @Override
     public List<NodeResult> getResultStack() {
@@ -80,6 +82,9 @@ public class GenericValueStack implements ValueStack {
 
     @Override
     public <T> T getByType(Class<T> type) {
+        if (BeanUtils.isSimpleProperty(type)) {
+            return null;
+        }
         for (Object val : context.values()) {
             if (val == null) {
                 return null;
