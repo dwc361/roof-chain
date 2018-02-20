@@ -40,15 +40,19 @@ public class GenericChain implements Chain, InitializingBean {
             nodeResult = nextNode.doNode(valueStack);
             valueStack.setPreResult(nodeResult);
             if (nodeResult == null) {
+                LOGGER.debug("roofChain: node[{}] result is null", nextNode.getName());
                 return null;
             }
             if (nextNode.getForwards() == null) {
+                LOGGER.debug("roofChain: node[{}] forwards is null", nextNode.getName());
                 return nodeResult;
             }
             String nextForward = nextNode.getForwards().get(nodeResult.getNext());
             if (StringUtils.isEmpty(nextForward)) {
+                LOGGER.debug("roofChain: node[{}] nextForward[{}] is null", nextNode.getName(), nextForward);
                 return nodeResult;
             }
+            LOGGER.debug("roofChain: node[{}] next node is [{}]", nextNode.getName(), nextForward);
             nextNode = nodeMap.get(nextForward);
         }
         return nodeResult;
