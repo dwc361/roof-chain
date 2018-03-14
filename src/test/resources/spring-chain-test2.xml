@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:chain="http://www.roof.org/schema/roof-chain"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.roof.org/schema/roof-chain http://www.roof.org/schema/roof-chain.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <chain:chain id="testChain" startNodeName="testNode">
+        <chain:nodes>
+            <chain:node name="" methodName="" target="test.Node">
+                <chain:forwards>
+                    <chain:forward next="" to=""/>
+                </chain:forwards>
+            </chain:node>
+            <chain:node ref=""/>
+        </chain:nodes>
+    </chain:chain>
+</beans>
