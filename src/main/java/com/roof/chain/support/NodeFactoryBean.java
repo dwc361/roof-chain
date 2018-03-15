@@ -19,6 +19,7 @@ import java.util.Map;
 
 /**
  * 处理节点代理工厂Bean, 将业务方法包装成处理节点
+ * @author liuxin
  */
 public class NodeFactoryBean implements FactoryBean<Node>, InitializingBean {
     private static final Logger LOGGER = LoggerFactory.getLogger(NodeFactoryBean.class);

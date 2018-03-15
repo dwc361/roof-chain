@@ -9,6 +9,7 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 public class RoofChainNamespaceHandlerSupport extends NamespaceHandlerSupport {
     @Override
     public void init() {
-
+        registerBeanDefinitionParser("chain",
+                new ChainBeanDefinitionParser());
     }
 }
