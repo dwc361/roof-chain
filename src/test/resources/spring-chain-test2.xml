@@ -4,14 +4,24 @@
        xmlns:chain="http://www.roof.org/schema/roof-chain"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.roof.org/schema/roof-chain http://www.roof.org/schema/roof-chain.xsd">
-    <chain:chain id="testChain" startNodeName="testNode">
+    <chain:chain id="testChain" startNodeName="method1">
         <chain:nodes>
-            <chain:node name="" methodName="" target="test.Node">
+            <chain:node name="method1" methodName="method1">
+                <chain:target>
+                    <bean class="com.roof.chain.support.TestNode"/>
+                </chain:target>
                 <chain:forwards>
-                    <chain:forward next="" to=""/>
+                    <chain:forward next="success" to="method2"/>
                 </chain:forwards>
             </chain:node>
-            <chain:node ref=""/>
+            <chain:node name="method2" methodName="method2">
+                <chain:target>
+                    <bean class="com.roof.chain.support.TestNode"/>
+                </chain:target>
+                <chain:forwards>
+                    <chain:forward next="success" to="doNode"/>
+                </chain:forwards>
+            </chain:node>
         </chain:nodes>
     </chain:chain>
 </beans>

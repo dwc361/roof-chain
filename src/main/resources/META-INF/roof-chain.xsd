@@ -6,7 +6,6 @@
             targetNamespace="http://www.roof.org/schema/roof-chain"
             elementFormDefault="qualified"
             attributeFormDefault="unqualified">
-
     <xsd:import namespace="http://www.springframework.org/schema/beans"
                 schemaLocation="http://www.springframework.org/schema/beans/spring-beans-4.3.xsd"/>
     <xsd:import namespace="http://www.springframework.org/schema/tool"
@@ -19,7 +18,7 @@
 
         <xsd:complexType>
             <xsd:complexContent>
-                <xsd:extension base="xsd:string">
+                <xsd:extension base="beans:identifiedType">
                     <xsd:group ref="chainElements"/>
                     <xsd:attributeGroup ref="chainAttrGroup"/>
                 </xsd:extension>
@@ -28,11 +27,6 @@
     </xsd:element>
 
     <xsd:attributeGroup name="chainAttrGroup">
-        <xsd:attribute name="id" type="xsd:ID" use="required">
-            <xsd:annotation>
-                <xsd:documentation>责任链唯一id</xsd:documentation>
-            </xsd:annotation>
-        </xsd:attribute>
         <xsd:attribute name="startNodeName" type="xsd:string" use="required">
             <xsd:annotation>
                 <xsd:documentation>责任链开始节点名称</xsd:documentation>
@@ -47,19 +41,13 @@
                     <xsd:documentation>节点列表</xsd:documentation>
                 </xsd:annotation>
                 <xsd:complexType mixed="true">
-                    <xsd:complexContent>
-                        <xsd:extension base="xsd:complexType">
-                            <xsd:group ref="nodesElements"/>
-                        </xsd:extension>
-                    </xsd:complexContent>
+                    <xsd:sequence>
+                        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                            <xsd:element ref="node"/>
+                        </xsd:choice>
+                    </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
-        </xsd:all>
-    </xsd:group>
-
-    <xsd:group name="nodesElements">
-        <xsd:all>
-            <xsd:element ref="node"/>
         </xsd:all>
     </xsd:group>
 
@@ -69,12 +57,12 @@
         </xsd:annotation>
         <xsd:complexType mixed="true">
             <xsd:complexContent>
-                <xsd:extension base="xsd:string">
+                <xsd:extension base="beans:identifiedType">
                     <xsd:all>
                         <xsd:element name="forwards">
                             <xsd:complexType mixed="true">
                                 <xsd:complexContent>
-                                    <xsd:extension base="xsd:complexType">
+                                    <xsd:extension base="beans:identifiedType">
                                         <xsd:all>
                                             <xsd:element name="forward">
                                                 <xsd:complexType>
@@ -89,12 +77,15 @@
                                 </xsd:complexContent>
                             </xsd:complexType>
                         </xsd:element>
+                        <xsd:element name="target">
+                            <xsd:complexType>
+                                <xsd:choice minOccurs="0" maxOccurs="1">
+                                    <xsd:element ref="beans:bean"/>
+                                    <xsd:element ref="beans:ref"/>
+                                </xsd:choice>
+                            </xsd:complexType>
+                        </xsd:element>
                     </xsd:all>
-                    <xsd:attribute name="id" type="xsd:ID">
-                        <xsd:annotation>
-                            <xsd:documentation>节点ID</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:attribute>
                     <xsd:attribute name="name" type="xsd:string">
                         <xsd:annotation>
                             <xsd:documentation>节点名称，默认为类名首字母小写</xsd:documentation>
@@ -105,11 +96,11 @@
                             <xsd:documentation>执行方法名称，默认为doNode</xsd:documentation>
                         </xsd:annotation>
                     </xsd:attribute>
-                    <xsd:attribute name="target" type="xsd:string">
-                        <xsd:annotation>
-                            <xsd:documentation>节点类名全路径</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:attribute>
+                    <!--    <xsd:attribute name="target" type="xsd:string">
+                            <xsd:annotation>
+                                <xsd:documentation>节点类名全路径</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:attribute>-->
                     <xsd:attribute name="ref" type="xsd:string">
                         <xsd:annotation>
                             <xsd:documentation>应用其他节点的名称</xsd:documentation>

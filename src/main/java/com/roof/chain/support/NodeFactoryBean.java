@@ -105,7 +105,7 @@ public class NodeFactoryBean implements FactoryBean<Node>, InitializingBean {
     /**
      * 业务方法的节点代理
      */
-    private class NodeProxy implements Node, NodeResultAdapter {
+    public class NodeProxy implements Node, NodeResultAdapter {
 
         @Override
         public NodeResult doNode(ValueStack valueStack) {
