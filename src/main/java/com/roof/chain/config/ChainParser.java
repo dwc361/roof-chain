@@ -14,7 +14,6 @@ import org.w3c.dom.Element;
  * @since 2018/3/15 0015
  */
 public class ChainParser extends AbstractSingleBeanDefinitionParser {
-    private static final String START_NODE_NAME = "startNodeName";
     private Class<? extends Chain> chainClass = GenericChain.class;
 
     @Override
@@ -24,8 +23,8 @@ public class ChainParser extends AbstractSingleBeanDefinitionParser {
 
     @Override
     protected void doParse(Element element, ParserContext parserContext, BeanDefinitionBuilder builder) {
-        String startNodeName = element.getAttribute(START_NODE_NAME);
-        builder.addPropertyValue(START_NODE_NAME, startNodeName);
+        String startNodeName = element.getAttribute("startNodeName");
+        builder.addPropertyValue("startNodeName", startNodeName);
         Element childElements = DomUtils.getChildElementByTagName(element, "nodes");
         NodesParser nodesParser = new NodesParser();
         BeanDefinition beanDefinition = nodesParser.parse(childElements, parserContext);
