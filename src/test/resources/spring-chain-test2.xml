@@ -4,12 +4,17 @@
        xmlns:chain="http://www.roof.org/schema/roof-chain"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.roof.org/schema/roof-chain http://www.roof.org/schema/roof-chain.xsd">
+    <!--声明开始节点名称 -->
     <chain:chain id="testChain" startNodeName="method1">
+        <!--节点列表-->
         <chain:nodes>
+            <!--节点名称和方法名称-->
             <chain:node name="method1" methodName="method1">
+                <!--节点实现bean-->
                 <chain:target>
                     <bean class="com.roof.chain.support.TestNode"/>
                 </chain:target>
+                <!--节点流向-->
                 <chain:forwards>
                     <chain:forward next="success" to="method2"/>
                 </chain:forwards>
