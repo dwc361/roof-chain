@@ -63,16 +63,18 @@
                             <xsd:complexType mixed="true">
                                 <xsd:complexContent>
                                     <xsd:extension base="beans:identifiedType">
-                                        <xsd:all>
-                                            <xsd:element name="forward">
-                                                <xsd:complexType>
-                                                    <xsd:attribute name="next" type="xsd:string" use="required">
-                                                    </xsd:attribute>
-                                                    <xsd:attribute name="to" type="xsd:string" use="required">
-                                                    </xsd:attribute>
-                                                </xsd:complexType>
-                                            </xsd:element>
-                                        </xsd:all>
+                                        <xsd:sequence>
+                                            <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                                                <xsd:element name="forward">
+                                                    <xsd:complexType>
+                                                        <xsd:attribute name="next" type="xsd:string" use="required">
+                                                        </xsd:attribute>
+                                                        <xsd:attribute name="to" type="xsd:string" use="required">
+                                                        </xsd:attribute>
+                                                    </xsd:complexType>
+                                                </xsd:element>
+                                            </xsd:choice>
+                                        </xsd:sequence>
                                     </xsd:extension>
                                 </xsd:complexContent>
                             </xsd:complexType>
