@@ -4,6 +4,13 @@
        xmlns:chain="http://www.roof.org/schema/roof-chain"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.roof.org/schema/roof-chain http://www.roof.org/schema/roof-chain.xsd">
+    <bean id="method3" class="com.roof.chain.support.NodeFactoryBean">
+        <property name="name" value="method3"/>
+        <property name="methodName" value="method3"/>
+        <property name="target">
+            <bean class="com.roof.chain.support.TestNode"/>
+        </property>
+    </bean>
     <!--声明开始节点名称 -->
     <chain:chain id="testChain" startNodeName="method1">
         <!--节点列表-->
@@ -24,9 +31,12 @@
                     <bean class="com.roof.chain.support.TestNode"/>
                 </chain:target>
                 <chain:forwards>
-                    <chain:forward next="success" to="doNode"/>
+                    <chain:forward next="success" to="method3"/>
                 </chain:forwards>
             </chain:node>
+            <chain:node ref="method3"/>
         </chain:nodes>
     </chain:chain>
+
+
 </beans>

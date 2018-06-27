@@ -59,7 +59,7 @@
             <xsd:complexContent>
                 <xsd:extension base="beans:identifiedType">
                     <xsd:all>
-                        <xsd:element name="forwards">
+                        <xsd:element name="forwards" minOccurs="0">
                             <xsd:complexType mixed="true">
                                 <xsd:complexContent>
                                     <xsd:extension base="beans:identifiedType">
@@ -79,9 +79,9 @@
                                 </xsd:complexContent>
                             </xsd:complexType>
                         </xsd:element>
-                        <xsd:element name="target">
+                        <xsd:element name="target" minOccurs="0">
                             <xsd:complexType>
-                                <xsd:choice minOccurs="0" maxOccurs="1">
+                                <xsd:choice minOccurs="0">
                                     <xsd:element ref="beans:bean"/>
                                     <xsd:element ref="beans:ref"/>
                                 </xsd:choice>

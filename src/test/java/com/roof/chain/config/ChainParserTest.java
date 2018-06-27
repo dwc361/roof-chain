@@ -1,6 +1,7 @@
 package com.roof.chain.config;
 
 import com.roof.chain.api.Chain;
+import com.roof.chain.support.GenericValueStack;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,9 @@ public class ChainParserTest {
     private Chain chain;
 
     @Test
-    public void test() {
+    public void test() throws Exception {
         System.out.println(chain);
-
+        chain.doChain(new GenericValueStack());
     }
 
     @Autowired

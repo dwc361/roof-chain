@@ -1,5 +1,6 @@
 package com.roof.chain.config;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
@@ -32,8 +33,14 @@ public class NodesParser extends AbstractSingleBeanDefinitionParser {
         List<Element> childElements = DomUtils.getChildElementsByTagName(element, "node");
         ManagedList<BeanDefinition> nodes = new ManagedList<BeanDefinition>();
         for (Element childElement : childElements) {
-            NodeParser nodeParser = new NodeParser();
-            BeanDefinition parse = nodeParser.parse(childElement, parserContext);
+            BeanDefinition parse;
+            String ref = childElement.getAttribute("ref");
+            if (StringUtils.isNotEmpty(ref)) {
+                parse = parserContext.getRegistry().getBeanDefinition(ref);
+            } else {
+                NodeParser nodeParser = new NodeParser();
+                parse = nodeParser.parse(childElement, parserContext);
+            }
             nodes.add(parse);
         }
         builder.addConstructorArgValue(nodes);
