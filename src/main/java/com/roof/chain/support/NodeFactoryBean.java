@@ -13,7 +13,6 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.cglib.reflect.FastMethod;
 import org.springframework.util.Assert;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 /**
@@ -107,20 +106,15 @@ public class NodeFactoryBean implements FactoryBean<Node>, InitializingBean {
     public class NodeProxy implements Node, NodeResultAdapter {
 
         @Override
-        public NodeResult doNode(ValueStack valueStack) {
+        public NodeResult doNode(ValueStack valueStack) throws Exception {
             Object[] params = getParams(methodParameters, valueStack);
-            try {
-                Object methodReturn = method.invoke(target, params);
-                if (ClassUtils.isAssignable(target.getClass(), NodeResultAdapter.class)) {
-                    NodeResultAdapter nodeResultAdapter = (NodeResultAdapter) target;
-                    return nodeResultAdapter.convertResult(methodReturn);
-                } else {
-                    return convertResult(methodReturn);
-                }
-            } catch (InvocationTargetException e) {
-                LOGGER.error(e.getMessage(), e);
+            Object methodReturn = method.invoke(target, params);
+            if (ClassUtils.isAssignable(target.getClass(), NodeResultAdapter.class)) {
+                NodeResultAdapter nodeResultAdapter = (NodeResultAdapter) target;
+                return nodeResultAdapter.convertResult(methodReturn);
+            } else {
+                return convertResult(methodReturn);
             }
-            return null;
         }
 
         @Override

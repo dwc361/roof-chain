@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.Assert.*;
-
 /**
  * @author liuxin
  * @since 2018/3/16 0016
@@ -21,7 +19,7 @@ public class ChainParserTest {
     private Chain chain;
 
     @Test
-    public void test() throws Exception {
+    public void test() throws Throwable {
         System.out.println(chain);
         chain.doChain(new GenericValueStack());
     }

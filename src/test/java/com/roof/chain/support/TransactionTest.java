@@ -18,7 +18,7 @@ public class TransactionTest {
     private Chain chain;
 
     @Test
-    public void testTransaction() throws Exception {
+    public void testTransaction() throws Throwable {
         System.out.println(chain);
         chain.doChain(new GenericValueStack());
     }

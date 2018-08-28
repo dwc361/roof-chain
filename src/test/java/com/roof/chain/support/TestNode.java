@@ -11,7 +11,8 @@ public class TestNode {
             System.out.println(valueStack);
         }
         System.out.println("invoke method1");
-        return "success";
+        throw new RuntimeException();
+//        return "success";
     }
 
     @Transactional

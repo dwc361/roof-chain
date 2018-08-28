@@ -31,7 +31,7 @@ public class DefaultChainTest {
     }
 
     @Test
-    public void testChain2() throws Exception {
+    public void testChain2() throws Throwable {
         ValueStack valueStack = new GenericValueStack();
         valueStack.set("name", "myname");
         valueStack.set("long1", 1L);
