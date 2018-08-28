@@ -2,7 +2,7 @@ package com.roof.chain.support;
 
 import com.roof.chain.api.MethodParamDescriptor;
 import com.roof.chain.api.ValueStackParam;
-import com.roof.chain.utils.AopTargetUtils;
+import org.springframework.aop.framework.Advised;
 import org.springframework.beans.BeanUtils;
 import org.springframework.cglib.reflect.FastClass;
 import org.springframework.cglib.reflect.FastMethod;
@@ -22,7 +22,6 @@ public class MethodParser {
 
     private Method method;
     private Class<?> type;
-    private Object target;
     private Class<?>[] parameterTypes;
     private String[] paramNames;
     private Annotation[][] parameterAnnotations;
@@ -30,13 +29,13 @@ public class MethodParser {
     public MethodParser(Object target, String methodName) {
         Assert.notNull(target, "target can not be null");
         Assert.notNull(methodName, "methodName can not be null");
-        try {
-            target = AopTargetUtils.getTarget(target);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        if (target instanceof Advised) {
+            Advised advised = (Advised) target;
+            type = advised.getTargetClass();
+        } else {
+            type = target.getClass();
+
         }
-        this.target = target;
-        this.type = target.getClass();
         this.method = BeanUtils.findMethodWithMinimalParameters(type, methodName);
         init();
     }

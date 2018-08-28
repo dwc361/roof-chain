@@ -14,6 +14,7 @@ public class TestNode {
         return "success";
     }
 
+    @Transactional
     public String method2(String name) {
         System.out.println("invoke method2");
         return "success";
