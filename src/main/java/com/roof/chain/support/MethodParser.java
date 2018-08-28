@@ -1,11 +1,12 @@
 package com.roof.chain.support;
 
-import com.roof.chain.api.ValueStackParam;
 import com.roof.chain.api.MethodParamDescriptor;
+import com.roof.chain.api.ValueStackParam;
+import com.roof.chain.utils.AopTargetUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.cglib.reflect.FastClass;
 import org.springframework.cglib.reflect.FastMethod;
-import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
+import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.util.Assert;
 
@@ -21,14 +22,21 @@ public class MethodParser {
 
     private Method method;
     private Class<?> type;
+    private Object target;
     private Class<?>[] parameterTypes;
     private String[] paramNames;
     private Annotation[][] parameterAnnotations;
 
-    public MethodParser(Class<?> type, String methodName) {
-        Assert.notNull(type, "type can not be null");
+    public MethodParser(Object target, String methodName) {
+        Assert.notNull(target, "target can not be null");
         Assert.notNull(methodName, "methodName can not be null");
-        this.type = type;
+        try {
+            target = AopTargetUtils.getTarget(target);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        this.target = target;
+        this.type = target.getClass();
         this.method = BeanUtils.findMethodWithMinimalParameters(type, methodName);
         init();
     }
@@ -41,7 +49,7 @@ public class MethodParser {
     }
 
     private String[] getParameterNames(Method method) {
-        ParameterNameDiscoverer parameterNameDiscoverer = new LocalVariableTableParameterNameDiscoverer();
+        ParameterNameDiscoverer parameterNameDiscoverer = new DefaultParameterNameDiscoverer();
         return parameterNameDiscoverer.getParameterNames(method);
     }
 

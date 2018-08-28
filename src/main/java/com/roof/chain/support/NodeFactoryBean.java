@@ -4,7 +4,6 @@ import com.roof.chain.api.MethodParamDescriptor;
 import com.roof.chain.api.Node;
 import com.roof.chain.api.NodeResultAdapter;
 import com.roof.chain.api.ValueStack;
-import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -43,7 +42,7 @@ public class NodeFactoryBean implements FactoryBean<Node>, InitializingBean {
         if (StringUtils.isEmpty(name)) {
             name = StringUtils.uncapitalize(target.getClass().getSimpleName());
         }
-        MethodParser methodParser = new MethodParser(target.getClass(), methodName);
+        MethodParser methodParser = new MethodParser(target, methodName);
         methodParameters = methodParser.getMethodParameters();
         method = methodParser.getFastMethod();
         if (instance == null) {

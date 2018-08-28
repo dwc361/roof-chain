@@ -1,9 +1,11 @@
 package com.roof.chain.support;
 
 import com.roof.chain.api.ValueStack;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 public class TestNode {
-
+    @Transactional
     public String method1(ValueStack valueStack) {
         if (valueStack != null) {
             System.out.println(valueStack);

@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.lang.reflect.Method;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(value = {"classpath*:spring-chain-test.xml"})
+@ContextConfiguration(value = {"classpath*:spring-db-mybatis.xml", "classpath*:spring-chain-test.xml"})
 public class DefaultChainTest {
     private Chain chain;
 
